@@ -1,0 +1,557 @@
+<style type="text/css">
+#editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+#editor-header{
+	height: 4.5rem;
+	flex-shrink: 0;
+	border-bottom: #dee0e6 1.5px solid;
+	display: flex;
+    justify-content: flex-end;
+}
+#editor-button {
+    display: flex;
+    font-size: 1.8rem;    
+}
+#editor-button > div {
+    cursor: pointer;
+    border-radius: 0.4rem;
+    user-select: none;
+    border-left: #dee0e6 1.5px solid;
+    text-align: center;
+    line-height: 4rem;
+    width: 12rem;
+    font-weight: 500;
+}
+#editor-button > div.disabled {
+    color: #aaa;
+    cursor: not-allowed;
+}
+#preview-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+#preview-modal {
+	width: 70%;
+	height: auto;
+    background: white;
+    padding: 1rem;
+    position: relative;
+}
+#preview-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1rem;
+    cursor: pointer;
+    font-size: 3rem;
+}
+#preview-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    gap: 0.5rem;
+}
+#preview-logo {
+	width: 15rem;
+	text-align: center;
+    font-size: 2.4rem;
+    font-family: "Questrial";
+    letter-spacing: 0.2rem;
+    font-weight: 600;
+
+    background: linear-gradient(
+        90deg,
+        rgb(70, 101, 217) 0%,
+        rgb(161, 118, 253) 100%
+    );
+
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+#preview-description {
+	text-align: center;
+	font-size: 2rem;
+}
+#preview-container {
+	display: flex;
+	gap: 3rem;
+	padding-left: 2rem;
+	padding-right: 2rem;
+	margin-bottom: 2rem;
+}
+.preview-canvas-container {
+    position: absolute !important;
+    pointer-events: none;
+}
+.preview-bg {
+	height: 100%;
+	width: 100%;
+}
+.preview-contant {
+	flex: 1;
+	display: flex;
+	position: relative;	
+	width: 30%;
+    max-width: 40%;
+}
+.preview-img {
+	position: absolute;
+	max-width: 50%;
+    height: auto;
+    object-fit: contain;
+}
+#preview-img1 {
+	max-width: 15%;
+    height: auto;
+	top: 26% !important;
+	left: 30% !important;
+	transform: skew(50deg, -28deg) !important;
+}
+#preview-img2 {
+	max-width: 17%;
+    height: auto;
+	top: 56% !important;
+	left: 42% !important;
+	transform: skew(51deg, -31deg) !important;
+}
+#preview-img3 {
+	max-width: 20%;
+    height: auto;
+	top: 38% !important;
+	left: 39% !important;
+	transform: skew(20deg, -15deg) !important;
+}
+#preview-img4 {
+	max-width: 50%;
+    height: auto;
+	top: 17% !important;
+	left: 25% !important;
+}
+#editor-content {
+	width: 100%;
+	height: 90%;
+	display: flex;
+	flex: 1;
+	background: #eef0f6;
+}
+#editor-canvas{
+	flex: 1;
+	background: #eef0f6;
+	overflow: auto;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#baseCanvas{
+	box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+#editor-tab{
+	width: 30rem;
+	background: #eef0f6;
+	z-index: 10;
+	transform: translateX(100%);
+	transition: transform 0.3s ease;
+	display: flex;
+	flex-direction: column; 
+    padding: 2.5rem;
+    padding-top: 2rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: white;
+    border-left: #dee0e6 1.5px solid;
+}
+#editor-tab.is-open {
+	transform: translateX(0%);
+}
+.tab-header{
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	align-items: center;
+	padding-bottom: 1rem;
+	border-bottom: #dee0e6 1.5px solid;
+}
+.tab-title{
+	display: flex;
+	width: 100%;
+	min-height: 3rem;	
+	font-size: 1.8rem;
+	font-weight: 500;
+}
+.tab-description{
+	display: flex;
+	width: 100%;
+	min-height: 5rem;	
+	font-size: 1.4rem;
+}
+.tab-content{
+	display: flex;
+	width: 100%;
+	height: auto;
+	padding-top: 1rem;
+    padding-bottom: 2rem;
+    flex-direction: column;
+    border-bottom: #dee0e6 1.5px solid;
+}
+.tab-content-title{
+	display: flex;
+	width: 100%;
+	min-height: 1rem;
+	font-size: 1.4rem;
+	padding-top: 0.5rem;
+	padding-bottom: 1rem;
+	font-weight: 500;
+}
+.tab-content-description{
+	display: flex;
+	width: 100%;
+	padding-bottom: 0.5rem;	
+}
+#palette-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%
+}
+.palette-btn {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.4rem;
+    border-radius: 0.6rem;
+    cursor: pointer;
+
+    background: #fff;
+    border: 1px solid #ddd;
+
+    transition:
+        transform 0.1s ease,
+        box-shadow 0.1s ease,
+        background 0.1s ease;
+}
+.palette-btn:hover {
+    background: #f0f2f7;
+    box-shadow: inset 0 0 0 1px #ccc;
+}
+.palette-btn:active {
+    transform: scale(0.97);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+}
+.palette-color {
+    width: 28px;
+    height: 28px;
+    border-radius: 0.4rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    pointer-events: none;
+    flex: auto;
+}
+.palette-btn.is-active {
+    outline: 2px solid #4a6cf7;
+    background: #eef2ff;
+}
+#text-input-box,
+#add-text-btn,
+#text-font-box {
+	width: 100%;
+	height: 3rem;
+	border-radius: 0.4rem;
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+#text-input-box{
+	margin-bottom: 1rem;
+	cursor: text; 
+	padding-left: 0.8rem; 
+	font-weight:500;
+}
+.shape-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    padding: 0.8rem;
+
+    height: 21rem;
+    overflow-y: auto;
+
+    background: #eef0f6;
+    border-radius: 0.6rem;
+    align-items: flex-start;
+}
+.svg-btn {
+    width: calc((100% - 1.6rem) / 3);
+    aspect-ratio: 1 / 1;
+
+    background: #ffffff;
+    border-radius: 0.4rem;
+    border: 1px solid #ddd;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+.svg-btn:hover {
+    background: #e3e6ee;
+    transform: scale(1.05);
+}
+.svg-btn img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+}
+#text-input-container{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+#text-font-container{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+#text-font-select{
+	width: 100%;
+    height: 3rem;
+    border-radius: 0.4rem;
+    border: 1px solid #ccc;
+    font-weight: 500;
+    padding-left: 0.5rem;
+}
+#shape-size-container,
+#text-weight-container,
+#text-size-container {
+	display: flex;
+	width: 100%
+}
+#shape-size-container input[type="range"],
+#text-weight-container input[type="range"],
+#text-size-container input[type="range"] {
+    flex: 1;
+}
+#shape-size-value,
+#text-weight-value,
+#text-size-value {
+    width: 3rem;
+    margin-left: 10px;
+}
+#text-aline-container button {
+	width: 36px;
+	height: 36px;
+	background: white;
+	border-radius: 0.4rem;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	margin-right: 1rem;
+}
+
+#shape-color-picker,
+#text-color-picker {
+	width: 36px;
+	height: 36px;
+	background: white;
+	border-radius: 0.4rem;
+	cursor: pointer;
+	border: 1px solid #ccc;
+}
+#editor-tab-button{
+	width: 8rem;
+	display: flex;
+    flex-direction: column; 
+    align-items: center;
+    background: white;;
+    z-index: 20;
+    border-left: #dee0e6 1.5px solid;
+}
+.tab-btn {
+    width: 100%;
+    height: 9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    cursor: pointer;
+    border-bottom: #dee0e6 1.5px solid;
+    flex-direction: column;
+    font-weight: 500;
+    gap: 0.5rem;
+}
+.tab-btn-img {
+	font-size: 2.5rem;
+}
+.tab-btn-title {
+	
+}
+.hidden{
+	display: none !important;
+}
+</style>
+<div id="editor">
+	<div id="editor-header">
+		<div id="editor-button">
+			<div id="canvas-undo" class="disabled"><i class="fa-solid fa-rotate-left" style="padding-right: 0.5rem;"></i>실행취소</div>
+			<div id="canvas-redo" class="disabled"><i class="fa-solid fa-rotate-right" style="padding-right: 0.5rem;"></i>다시실행</div>
+			<div id="canvas-preview"><i class="fa-solid fa-eye" style="padding-right: 0.5rem;"></i>미리보기</div>
+			<!-- 
+			<div id="canvas-save"><i class="fa-solid fa-floppy-disk" style="padding-right: 0.5rem;"></i>저장하기</div>
+			 -->
+			<div id="canvas-download"><i class="fa-solid fa-download" style="padding-right: 0.5rem;"></i>다운로드</div>
+		</div>
+	</div>
+	<div id="editor-content">
+		<div id="editor-canvas">
+			<canvas id="baseCanvas" width="700" height="600"></canvas>
+		</div>
+		<div id="editor-tab">
+			<div id="editor-tab-palette">
+				<div class="tab-header">
+					<div class="tab-title">색상 팔레트</div>
+					<div class="tab-description">모든 도형과 텍스트의 색상을 변경합니다.</div>
+				</div>		
+				<div class="tab-content">
+					<div class="tab-content-title">텍스트 상자</div>								
+					<div class="tab-content-description">
+						<div id="palette-container"></div>
+					</div>
+				</div>
+			</div>
+			<div id="editor-tab-text">
+				<div class="tab-header">
+					<div class="tab-title">텍스트</div>
+					<div class="tab-description">원하는 텍스트를 입력하세요<br>글꼴, 크기, 색상 등을 변경할 수 있습니다.</div>
+				</div>
+				<div class="tab-content">
+					<div class="tab-content-title">텍스트 상자</div>								
+					<div class="tab-content-description">
+						<div id="text-input-container">
+							<input id="text-input-box" type="text" placeholder="내용을 입력하세요."/>
+							<div id="add-text-btn" style="display: flex; align-items: center;"><i class="fa-solid fa-plus" style="flex: 1;"></i></div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-content">
+					<div class="tab-content-title">글꼴</div>			
+					<div class="tab-content-description">
+						<div id="text-font-container">
+							<select id="text-font-select">
+					            <option value="NanumGothic" style="font-family: NanumGothic; font-weight: 500;">나눔 고딕</option>
+					            <option value="NanumMyeongjo" style="font-family: NanumMyeongjo; font-weight: 500;">나눔 명조</option>
+					            <option value="NanumPen" style="font-family: NanumPen; font-weight: 500;">나눔 펜</option>
+					        </select>
+						</div>
+					</div>
+				</div>
+				<div class="tab-content">
+					<div class="tab-content-title">굵기</div>			
+					<div class="tab-content-description">
+						<div id="text-weight-container">
+							<input id="text-weight-slider" type="range" min="1" max="1000" value="10"/>
+							<span id="text-weight-value">10</span>
+						</div>
+					</div>
+				</div>
+				<div class="tab-content">
+					<div class="tab-content-title">크기</div>			
+					<div class="tab-content-description">
+						<div id="text-size-container">
+							<input id="text-size-slider" type="range" min="1" max="1000" value="10"/>
+							<span id="text-size-value">10</span>
+						</div>
+					</div>
+				</div>
+				<div class="tab-content">
+					<div class="tab-content-title">정렬</div>	
+					<div class="tab-content-description">
+						<div id="text-aline-container">
+							<button id="text-aline-left"><i class="fa-solid fa-align-left" style="font-size: 1.8rem;"></i></button>
+							<button id="text-aline-center"><i class="fa-solid fa-align-center" style="font-size: 1.8rem;"></i></button>
+							<button id="text-aline-right"><i class="fa-solid fa-align-right" style="font-size: 1.8rem;"></i></button>
+						</div>
+					</div>
+				</div>
+				<div class="tab-content">
+					<div class="tab-content-title">색상</div>			
+					<div class="tab-content-description">
+						<div id="text-color-container">						
+							<input type="color" id="text-color-picker" value="black"/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="editor-tab-shape">
+				<div class="tab-header">
+					<div class="tab-title">도형</div>
+					<div class="tab-description">원하는 도형을 선택하세요.<br>크기와 색상을 변경할 수 있습니다.</div>
+				</div>
+				<div class="tab-content">
+					<div class="tab-content-title">모양</div>			
+					<div class="tab-content-description">
+						<div class="shape-container"></div>
+					</div>
+				</div>
+				<div class="tab-content">
+					<div class="tab-content-title">크기</div>			
+					<div class="tab-content-description">
+						<div id="shape-size-container">
+							<input id="shape-size-slider" type="range" min="1" max="1000" value="10"/>
+							<span id="shape-size-value">10</span>
+						</div>
+					</div>
+				</div>
+				<div class="tab-content">
+					<div class="tab-content-title">색상</div>			
+					<div class="tab-content-description">
+						<div id="shape-color-container">						
+							<input type="color" id="shape-color-picker" value="black"/>
+						</div>
+					</div>
+				</div>
+			</div>		
+		</div>
+		<div id="editor-tab-button">
+			<div class="tab-btn" data-tab="btn-tap-palette">
+				<span class="tab-btn-img"><i class="fa-solid fa-droplet"></i></span>
+				<span class="tab-btn-title">팔레트</span>
+			</div>
+		    <div class="tab-btn" data-tab="btn-tap-text">
+		    	<span class="tab-btn-img"><i class="fa-solid fa-font"></i></span>
+		    	<span class="tab-btn-title">텍스트</span>
+	    	</div>
+		    <div class="tab-btn" data-tab="btn-tap-shape">
+		    	<span class="tab-btn-img"><i class="fa-solid fa-square"></i></span>
+		    	<span class="tab-btn-title">도형</span>
+	    	</div>
+		</div>
+	</div>
+</div>
+<!-- modal -->
+<div id="preview-overlay" class="hidden">
+    <div id="preview-modal">
+    	<span id="preview-close"><i class="fa-solid fa-xmark"></i></span>
+    	<div id="preview-header">
+    		<div id="preview-logo">LogoYogo</div>
+    		<div id="preview-description">미리보기</div>
+    	</div>
+    	<div id="preview-container">
+    		<div id="preview-contant1" class="preview-contant">
+		    	<img class="preview-bg" src="../LogoYogo/resources/images/preview/card.png" />
+    		</div>
+    		<div id="preview-contant2" class="preview-contant">
+		    	<img class="preview-bg" src="../LogoYogo/resources/images/preview/facebook.png" />
+    		</div>
+	    	<div id="preview-contant3" class="preview-contant">
+		    	<img class="preview-bg" src="../LogoYogo/resources/images/preview/web-sample.png" />
+	    	</div>
+    	</div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
