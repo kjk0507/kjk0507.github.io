@@ -437,12 +437,10 @@ function editor(){
     var textAlineRight = document.getElementById('text-aline-right');
     var textPicker = document.getElementById('text-color-picker');
 
-    /*
     // 폰트 로드
     document.fonts.load("16px NanumGothic");
     document.fonts.load("16px NanumMyeongjo");
     document.fonts.load("16px NanumPen");
-    */
 
     // 텍스트 박스 추가
     function addTextBox() {
@@ -822,9 +820,13 @@ function editor(){
         
         if(!data) return;
         
-        canvas.loadFromJSON(data);
-        
-        sessionStorage.removeItem('selectTemplate');
+        document.fonts.ready.then(() => {
+            canvas.loadFromJSON(data, () => {
+            canvas.renderAll();
+            });
+
+            sessionStorage.removeItem("selectTemplate");
+        });
     }
 
     // --------------------------- 초기 실행 --------------------------- //
