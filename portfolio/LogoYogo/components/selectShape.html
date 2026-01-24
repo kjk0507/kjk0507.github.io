@@ -97,6 +97,24 @@
     background: rgb(141, 98, 235);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
+@media (max-width: 768px) {
+    #selectShape-header {
+        flex-direction: column;
+    }
+    #selectSahpe-description {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+	#selectShape-container {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    #passEditor {
+        width: 90%;
+    }
+}
 </style>
 <div id="selectShape-header">
 	<div id="selectShape-title">도형을 선택하세요</div>

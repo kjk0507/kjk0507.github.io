@@ -64,27 +64,35 @@
     z-index: 100;
 }
 #passEditor {
-    width: 20%;
-    height: 50%;
-    background: rgb(161, 118, 255);
+	width: 20%;
+	height: 50%;
+    background: rgb(161, 118, 255);;
     border-radius: 0.4rem;
-    cursor: pointer;
-    border: 1px solid #ccc;
-
-    display: flex;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	
+	display: flex;
     justify-content: center;
     align-items: center;
-
-    font-size: clamp(1rem, 2vw, 2rem);
+    
+    font-size: 2rem;
     color: white;
-    text-align: center;
-    word-break: keep-all;
-    display: flex;
-    flex-shrink: 0;
 }
 #passEditor:hover {
     background: rgb(141, 98, 235);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+@media (max-width: 768px) {
+	#selectTemplate-header {
+        flex-direction: column;
+    }
+    #selectTemplate-description {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    #passEditor {
+        width: 90%;
+    }
 }
 </style>
 <div id="selectTemplate">

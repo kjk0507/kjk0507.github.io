@@ -2,7 +2,9 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LogoYogo</title>
+    <link rel="icon" href="../LogoYogo/resources/images/mainPage/logo.png">
 <style>
 html, body {
 	height: 100%;
@@ -46,6 +48,15 @@ body {
     font-family: 'NanumPen';
     src: url('../LogoYogo/resources/fonts/NanumPen.ttf') format('truetype');
     font-weight: 400;
+}
+@media (max-width: 768px) {
+    html {
+        font-size: 50%;
+    }
+    .section_page {
+        height: 100dvh;
+        scroll-snap-align: none;
+    }
 }
 </style>
 </head>

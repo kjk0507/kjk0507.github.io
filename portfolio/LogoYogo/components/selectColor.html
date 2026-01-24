@@ -87,6 +87,24 @@
     background: rgb(141, 98, 235);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
+@media (max-width: 768px) {
+	#selectColor-header {
+        flex-direction: column;
+    }
+    #selectColor-description {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+	#selectColor-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    #passEditor {
+        width: 90%;
+    }
+}
 </style>
 <div id="selectColor-header">
 	<div id="selectColor-title">색상을 선택하세요</div>

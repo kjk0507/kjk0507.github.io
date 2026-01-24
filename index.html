@@ -2,45 +2,255 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>Web Portfolio</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <link rel="icon" href="/resources/images/logo.png">
   <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #111;
-      color: #fff;
-      font-family: 'NanumGothic', sans-serif;
-    }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: "NanumGothic", Arial, sans-serif;
+    background-color: #f9fafb;
+    color: #1f2937;
+    line-height: 1.6;
+  }
+  .header {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    color: #fff;
+    text-align: center;
+    padding: 4rem 1rem;
+  }
+  .header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+  .container {
+    max-width: 900px;
+    margin: -3rem auto 3rem;
+    padding: 0 1rem;
+  }
+  .card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  }
+  .card h2 {
+    margin-bottom: 1rem;
+  }
+  .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .skill {
+    background: #eef2ff;
+    color: #3743c6;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+  }
+  .btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: #4f46e5;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+  }
+  .btn:hover {
+    background: #4338ca;
+  }
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    color: #6b7280;
+    font-size: 0.9rem;
+  }
+  .info-list {
+    list-style: none;
+  }
+  .info-list li {
+    display: flex;
+    align-items: center;
+  }
 
-    .enter-btn {
-      padding: 1.2rem 2.4rem;
-      font-size: 1.6rem;
-      border: none;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      background: linear-gradient(135deg, #4665d9, #a176ff);
-      color: #fff;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .enter-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
+  .info-list strong {
+    width: 90px;
+    display: inline-block;
+    color: #555;
+  } 
+  .info-list a {
+    color: #4f46e5;
+    text-decoration: none;
+  }
+  .info-list a:hover {
+    text-decoration: underline;
+  }
+  .career-card {
+    background: #ffffff;
+    border-left: 6px solid #4f7cff;
+    padding: 1.8rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+  .career-title{
+    font-size: 1.2rem;
+    font-weight: bolder;
+  }
+  .career-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .career-header h3 {
+    margin: 0;
+  }
+  .career-period {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  .career-role {
+    margin: 0.6rem 0 1rem;
+    font-weight: 600;
+    color: #4f7cff;
+  }
+  .career-list {
+    padding-left: 1.2rem;
+    padding-top: 0.5rem;
+  }
+  .career-list li {
+    margin-bottom: 0.5rem;
+  }
+  .portfolio-item {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  }
+  .portfolio-image {
+    flex: 0 0 300px;
+  }
+  .portfolio-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  }
+  .portfolio-content {
+    flex: 1;
+  }
+  .portfolio-content h3 {
+    margin-bottom: 0.6rem;
+  }
+  .portfolio-content p {
+    margin-bottom: 0.6rem;
+  }
+  .portfolio-tech {
+    margin-top: 0.6rem;
+    color: #555;
+  }
   </style>
 </head>
-
 <body>
-  <button class="enter-btn" id="enterPortfolio">포트폴리오 보기</button>
-  <script>
-    document.getElementById("enterPortfolio").addEventListener("click", () => {
-      window.location.href = "portfolio/LogoYogo/LogoYogo.html";
-    });
-  </script>
 
+<header class="header">
+  <h1>김정규</h1>
+  <p>Java · Spring 기반 웹 개발자</p>
+</header>
+
+<main class="container">
+  <section class="card">
+    <h2>소개</h2>
+    <ul class="info-list">
+      <li><strong>이름</strong>김정규</li>
+      <li><strong>이메일</strong>tyj01222@gamil.com</li>
+      <li>
+        <strong>GitHub</strong>
+        <a href="https://github.com/kjk0507" target="_blank">
+          https://github.com/kjk0507
+        </a>
+      </li>
+    </ul>
+  </section>
+  <section class="card">
+    <h2>자기소개</h2>
+      <p>
+        &nbsp;목표라는 난관에 부딪혔을 때 멈추지 않고 나아가는 개발자입니다.
+        웹 솔루션 회사의 경력을 통해 JavaSpring, MySQL, Elasticsearch 등 여러 언어의 경험과 운영 경험을 가지고 있습니다.
+        문제가 발생할 경우 가능한 한 많은 정보를 수집하고 여러 방면의 시도를 통해 해결 방안을 찾아냅니다.
+      </p>
+      <p style="margin-top: 0.5rem;">
+        &nbsp;운영 중 발생하는 이슈를 로그와 데이터를 기반으로 분석하고,
+        구조적인 개선을 통해 재발을 방지하는 개발 방식을 중요하게 생각합니다.
+      </p>
+  </section>
+
+  <section class="card">
+    <h2>사용 기술</h2>
+      <div class="skill-list">
+        <span class="skill">Java</span>
+        <span class="skill">Spring</span>
+        <span class="skill">JSP</span>
+        <span class="skill">MySQL</span>
+        <span class="skill">Elasticsearch</span>
+        <span class="skill">HTML</span>
+        <span class="skill">CSS</span>
+        <span class="skill">JavaScript</span>
+      </div>
+  </section>
+
+  <section class="card">
+    <h2>경력</h2>
+      <span class="career-title">(주) 삼오씨엔에스 연구소 | 주임연구원</span>
+      <span class="career-period">2021.05 ~ 2023.09 (2년 5개월)</span>
+      <ul class="career-list">
+        <li>Java Spring 기반 서버 애플리케이션 유지보수 및 기능 개선</li>
+        <li>JSP 기반 관리 화면 수정 및 신규 페이지 개발</li>
+        <li>MySQL, Elasticsearch를 활용한 데이터 조회 및 가공</li>
+        <li>솔루션 설치, 배포 및 운영 지원 (온프레미스 환경)</li>
+        <li>PDF 보고서 생성 기능 구현 및 성능 개선</li>
+      </ul>
+  </section>
+
+  <section class="card">
+    <h2>포트폴리오</h2>
+      <div class="portfolio-item">
+    <div class="portfolio-image">
+      <img src="resources/images/LogoYogoPreview.png" alt="LogoYogo 미리보기">
+    </div>
+    <div class="portfolio-content">
+      <h3>LogoYogo</h3>
+      <p>
+        문구 입력, 로고 형태 선택, 색상 및 위치 조절을 통해
+        사용자가 원하는 로고를 직접 제작할 수 있는 웹 기반 로고 제작 서비스입니다.
+      </p>
+      <p class="portfolio-tech">
+        <strong>사용 기술:</strong> HTML, CSS, JavaScript
+      </p>
+      <a class="portfolio-link" href="portfolio/LogoYogo/LogoYogo.html">
+        → 포트폴리오 바로가기
+      </a>
+    </div>
+  </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  © <span id="year"></span> kjk0507. All rights reserved.
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</footer>
 </body>
+<script src="https://kit.fontawesome.com/63c4e068e0.js" crossorigin="anonymous"></script>
 </html>
